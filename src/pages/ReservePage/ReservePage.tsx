@@ -6,7 +6,8 @@ import './ReservePage.scss'
 import {Button} from "../../components/Button/Button";
 import axios from "axios";
 import {apiConfig, apiUrl} from "../../components/api/apiReference";
-import {Form, Input} from 'antd';
+import {DatePicker, Form, Input, Result, TimePicker} from 'antd';
+import moment from 'moment';
 
 export const ReservePage = () => {
 
@@ -18,10 +19,13 @@ export const ReservePage = () => {
     reserved_at: '2021-07-07T16:14:00.013Z',
     phone: '',
     name: '',
+    date: '',
+    time: '',
     places: 1
   }
 
   const [formState, setFormState] = useState<any>(defaultFormState)
+  const [result, setResult] = useState<boolean>(false)
 
   const formChangeHandler = (value: any, iterator: string) => {
 
@@ -52,20 +56,34 @@ export const ReservePage = () => {
           }
         })
         break;
+      case 'date':
+        setFormState((prev: any) => {
+          return {
+            ...prev,
+            date: value
+          }
+        })
+        break;
+      case 'time':
+        setFormState((prev: any) => {
+          return {
+            ...prev,
+            time: value
+          }
+        })
+        break;
     }
   }
 
   const submitHandler = async () => {
-
-    console.log(formState, restaurant.id)
     try {
       const response = await axios.post(`${apiUrl}/reservations/`,
         {
-        ...formState, restaurant: restaurant.id, place: id
+        ...formState, restaurant: restaurant.id, place: id, reserved_at: `${formState.date} ${formState.time}`
         },
         apiConfig);
 
-      console.log(response)
+      setResult(true)
     } catch (e) {
       console.log(e)
     }
@@ -89,7 +107,12 @@ export const ReservePage = () => {
       </Breadcrumb>
 
       <div className="reserve-page__form">
-        <Form>
+        <Form
+            name="basic"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            initialValues={{ remember: true }}
+        >
           <Form.Item
             label="Имя"
             name="name"
@@ -99,6 +122,22 @@ export const ReservePage = () => {
               value={formState.name}
               onChange={(e) => formChangeHandler(e.target.value, 'name')}
             />
+          </Form.Item>
+
+          <Form.Item
+              label={'Дата'}
+              name={'date'}
+              rules={[{ required: true, message: 'Пожалуйста, введите дату бронирования' }]}
+          >
+            <DatePicker value={formState.date} onChange={(date, dateString) => formChangeHandler(dateString, 'date')} />
+          </Form.Item>
+
+          <Form.Item
+              label={'Время'}
+              name={'time'}
+              rules={[{ required: true, message: 'Пожалуйста, введите время бронирования' }]}
+          >
+            <TimePicker value={formState.time} onChange={(time, timeString) => formChangeHandler(timeString, 'time')} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
           </Form.Item>
 
           <Form.Item
@@ -123,11 +162,28 @@ export const ReservePage = () => {
               onChange={(e) => formChangeHandler(e.target.value, 'places')}
             />
           </Form.Item>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button primary onClick={submitHandler}>
+              Зарезервировать
+            </Button>
+          </Form.Item>
         </Form>
-        <Button primary onClick={submitHandler}>
-          Зарезервировать
-        </Button>
       </div>
+
+      {result ?
+          <div className="reserve-page__result">
+            <Result
+                status="success"
+                title="Вашу бронирование подтверждено!"
+                subTitle="Спасибо за выбор нашего ресторана, с вами свяжется наш менеджер в течении 30 минут."
+                extra={[
+                  <Button primary href={'/'}>
+                    Продолжить
+                  </Button>,
+                ]}
+            />
+          </div> : null
+      }
     </div>
   )
 }
