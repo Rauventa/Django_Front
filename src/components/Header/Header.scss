@@ -1,0 +1,17 @@
+.header {
+  width: 100%;
+  padding: 20px;
+  background-color: #B0BF3F;
+  display: flex;
+  justify-content: space-between;
+
+  &__logo {
+    a {
+      color: #20211F;
+    }
+  }
+
+  &__nav {
+
+  }
+}
