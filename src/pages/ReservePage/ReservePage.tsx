@@ -153,9 +153,9 @@ export const ReservePage = () => {
           </Form.Item>
 
           <Form.Item
-            label="Колличество мест"
+            label="Колличество персон"
             name="places"
-            rules={[{ required: true, message: 'Пожалуйста, укажите количество мест' }]}
+            rules={[{ required: true, message: 'Пожалуйста, укажите количество персон' }]}
           >
             <Input
               value={formState.places}
