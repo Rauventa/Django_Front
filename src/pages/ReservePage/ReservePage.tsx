@@ -6,7 +6,7 @@ import './ReservePage.scss'
 import {Button} from "../../components/Button/Button";
 import axios from "axios";
 import {apiConfig, apiUrl} from "../../components/api/apiReference";
-import {DatePicker, Form, Input, Result, TimePicker} from 'antd';
+import {DatePicker, Form, Input, message, Result, TimePicker} from 'antd';
 import moment from 'moment';
 
 export const ReservePage = () => {
@@ -28,8 +28,6 @@ export const ReservePage = () => {
   const [result, setResult] = useState<boolean>(false)
 
   const formChangeHandler = (value: any, iterator: string) => {
-
-    console.log(value)
 
     switch (iterator) {
       case 'name':
@@ -77,7 +75,7 @@ export const ReservePage = () => {
 
   const submitHandler = async () => {
     try {
-      const response = await axios.post(`${apiUrl}/reservations/`,
+      await axios.post(`${apiUrl}/reservations/`,
         {
         ...formState, restaurant: restaurant.id, place: id, reserved_at: `${formState.date} ${formState.time}`
         },
@@ -86,13 +84,14 @@ export const ReservePage = () => {
       setResult(true)
     } catch (e) {
       console.log(e)
+      message.error('Ошибка при резервировании');
     }
 
   }
 
   return (
     <div className={'reserve-page'}>
-      <h1>Зарезервировать</h1>
+      <h1>Зарезервировать стол #{id} в ресторане "{restaurant.name}"</h1>
 
       <Breadcrumb>
         <Breadcrumb.Item>

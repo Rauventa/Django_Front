@@ -54,6 +54,10 @@ export const RestaurantPage = () => {
           }):
           <div>
             <p>Свободных столов нет</p>
+
+              <Button primary onClick={history.goBack}>
+                  Вернуться назад
+              </Button>
           </div>
         }
       </div>
