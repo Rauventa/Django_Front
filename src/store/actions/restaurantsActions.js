@@ -39,3 +39,13 @@ export function getRestaurantSuccess(restaurant) {
         restaurant
     }
 }
+
+// export function addRestaurant(data) {
+//     return async dispatch => {
+//         try {
+//             await axios.post(`${apiUrl}/restaurants/`, data, apiConfig)
+//         } catch (e) {
+//             console.log(e)
+//         }
+//     }
+// }

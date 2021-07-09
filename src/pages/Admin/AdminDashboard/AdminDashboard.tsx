@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getRestaurants} from "../../../store/actions/restaurantsActions";
 import {DeleteOutlined, EditOutlined} from '@ant-design/icons'
-import { NavLink } from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
 
 export const AdminDashboard = () => {
 
@@ -12,6 +12,8 @@ export const AdminDashboard = () => {
     useEffect(() => {
         dispatch(getRestaurants())
     }, [])
+
+    const history = useHistory()
 
     const restaurants = useSelector((state: any) => state.restaurantsReducer.restaurants).map((item: any, index: number) => {
         return {
@@ -82,7 +84,7 @@ export const AdminDashboard = () => {
         <div className={'admin-dashboard'}>
             <h1>Сервис администратора</h1>
 
-            <Button type={'primary'}>
+            <Button type={'primary'} onClick={() => history.push('/admin/add/restaurant')}>
                 Добавить новый ресторан
             </Button>
 
