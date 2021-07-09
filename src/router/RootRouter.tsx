@@ -8,6 +8,7 @@ import {AdminDashboard} from "../pages/Admin/AdminDashboard/AdminDashboard";
 import {AdminTables} from "../pages/Admin/AdminTables/AdminTables";
 import { AdminReservations } from '../pages/Admin/AdminReservations/AdminReservations';
 import {AdminAddRestaurant} from "../pages/Admin/AdminAddRestaurant/AdminAddRestaurant";
+import {AdminEditRestaurant} from "../pages/Admin/AdminEditRestaurant/AdminEditRestaurant";
 
 export const RootRouter = () => {
   return (
@@ -39,6 +40,9 @@ export const RootRouter = () => {
       <Route path={'/admin/add/restaurant'}>
         <AdminAddRestaurant />
       </Route>
+        <Route path={'/admin/edit/restaurant/:id'}>
+            <AdminEditRestaurant />
+        </Route>
     </Switch>
   )
 }

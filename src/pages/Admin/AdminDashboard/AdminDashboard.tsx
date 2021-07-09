@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {getRestaurants} from "../../../store/actions/restaurantsActions";
 import {DeleteOutlined, EditOutlined} from '@ant-design/icons'
 import {NavLink, useHistory} from 'react-router-dom';
+import axios from "axios";
+import {apiConfig, apiUrl} from "../../../components/api/apiReference";
 
 export const AdminDashboard = () => {
 
@@ -21,6 +23,16 @@ export const AdminDashboard = () => {
             key: index
         }
     })
+
+    const removeHandler = async (id: any) => {
+        try {
+            await axios.delete(`${apiUrl}/restaurants/${id}`, apiConfig)
+
+            dispatch(getRestaurants())
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     const columns = [
         {
@@ -59,10 +71,10 @@ export const AdminDashboard = () => {
             key: 'actions',
             render: (text: any, record: any) => (
                 <div>
-                    <Button type={'primary'} style={{marginRight: '10px'}}>
+                    <Button type={'primary'} style={{marginRight: '10px'}} onClick={() => history.push(`/admin/edit/restaurant/${record.id}`)}>
                         <EditOutlined />
                     </Button>
-                    <Button type="primary" danger style={{marginRight: '10px'}}>
+                    <Button type="primary" danger style={{marginRight: '10px'}} onClick={() => removeHandler(record.id)}>
                         <DeleteOutlined />
                     </Button>
                 </div>
