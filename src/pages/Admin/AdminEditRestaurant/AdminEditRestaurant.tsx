@@ -62,7 +62,7 @@ export const AdminEditRestaurant = () => {
 
     const handleSubmit = async () => {
         try {
-            await axios.put(`${apiUrl}/restaurants/${id}`, {...formState, owner: 1, id: 1}, apiConfig)
+            await axios.put(`${apiUrl}/restaurants/${id}/`, {...formState, owner: 1, id: 1}, apiConfig)
 
             console.log(formState)
 
@@ -71,8 +71,6 @@ export const AdminEditRestaurant = () => {
             console.log(e)
         }
     }
-
-    console.log(formState)
 
     return (
         <div>

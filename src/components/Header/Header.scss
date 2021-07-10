@@ -1,7 +1,7 @@
 .header {
   width: 100%;
   padding: 20px;
-  background-color: #B0BF3F;
+  background-color: #c9c9c9;
   display: flex;
   justify-content: space-between;
   //background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
@@ -22,7 +22,9 @@
   }
 
   &__nav {
-
+    &_item {
+      cursor: pointer;
+    }
   }
 }
 

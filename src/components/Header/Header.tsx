@@ -27,7 +27,7 @@ export const Header = () => {
                 {/*  {$t('Reserve')}*/}
                 {/*</NavLink>*/}
 
-                <div onClick={logoutHandler}>
+                <div className={'header__nav_item'} onClick={logoutHandler}>
                     {localStorage.role}, Выйти
                 </div>
             </div> : null

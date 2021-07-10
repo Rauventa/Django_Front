@@ -39,6 +39,7 @@ export const AdminDashboard = () => {
             title: 'ID',
             dataIndex: 'id',
             key: 'id',
+            sorter: (a: any, b: any) => a.id - b.id,
         },
         {
             title: 'Название ресторана',

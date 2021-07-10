@@ -25,7 +25,7 @@ export const AdminLogin = () => {
 
     const handleSubmit = () => {
         if (adminData.password === formState.password) {
-            localStorage.setItem('role', 'admin')
+            localStorage.setItem('role', 'Админ')
             history.push('/admin')
             window.location.reload()
         } else {

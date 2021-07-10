@@ -27,6 +27,7 @@ export const AdminTables = () => {
             title: 'ID',
             dataIndex: 'id',
             key: 'id',
+            sorter: (a: any, b: any) => a.id - b.id,
         },
         {
             title: 'Номер стола',
@@ -37,6 +38,7 @@ export const AdminTables = () => {
             title: 'Количество мест',
             dataIndex: 'max_places',
             key: 'max_places',
+            sorter: (a: any, b: any) => a.max_places - b.max_places,
         },
         {
             title: 'Номер зала',
@@ -49,7 +51,7 @@ export const AdminTables = () => {
             key: 'actions',
             render: (text: any, record: any) => (
                 <div>
-                    <Button type={'primary'} style={{marginRight: '10px'}}>
+                    <Button type={'primary'} style={{marginRight: '10px'}} onClick={() => history.push(`/admin/table/edit/${record.id}`)}>
                         <EditOutlined />
                     </Button>
                     <Button type="primary" danger style={{marginRight: '10px'}}>
@@ -63,10 +65,10 @@ export const AdminTables = () => {
     return (
         <div>
 
-            <Button type={'primary'} onClick={history.goBack}>
+            <Button type={'primary'} onClick={history.goBack} style={{marginRight: '20px'}}>
                 Назад к ресторану "{restaurant.name}"
             </Button>
-            <Button type={'primary'}>
+            <Button type={'primary'} onClick={() => history.push(`/admin/add/table/${restaurant.id}`)}>
                 Добавить новый стол
             </Button>
 
